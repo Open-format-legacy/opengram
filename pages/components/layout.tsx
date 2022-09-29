@@ -2,9 +2,10 @@ import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
+  mode?: "columns" | "full";
 }
 
-function Layout({ children }: Props) {
+function Layout({ children, mode = "columns" }: Props) {
   return (
     <>
       <div className="pt-[60px]">
@@ -32,7 +33,11 @@ function Layout({ children }: Props) {
           </div>
         </header>
 
-        <main className="max-w-[820px] mx-auto grid grid-cols-[470px_1fr] gap-10">
+        <main
+          className={`max-w-[820px] mx-auto grid gap-10 ${
+            mode === "columns" ? "grid-cols-[470px_1fr]" : "grid-cols-1"
+          }`}
+        >
           <div className="py-7">{children}</div>
           <div className="py-7">
             <p className="uppercase text-sm text-[#968b8b]">

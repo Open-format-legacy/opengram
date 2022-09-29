@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Props {
   name: string;
   description: string;
@@ -18,11 +20,15 @@ function Post({
   return (
     <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md">
       <div className="p-4">
-        <img
-          src={avatarUrl(creator)}
-          alt={`${creator} avatar`}
-          className="w-8 h-8"
-        />
+        <Link href={`/${creator}`}>
+          <a>
+            <img
+              src={avatarUrl(creator)}
+              alt={`${creator} avatar`}
+              className="w-8 h-8"
+            />
+          </a>
+        </Link>
       </div>
       <img
         src={imageUrl}
@@ -42,9 +48,13 @@ function Post({
         <div className="mt-2">
           <h6 className="mb-[2px]">
             <span className="font-medium">{name}</span> by{" "}
-            <span className="font-medium text-gray-700">
-              {truncateAddress(creator)}
-            </span>
+            <Link href={`/${creator}`}>
+              <a>
+                <span className="font-medium text-gray-700">
+                  {truncateAddress(creator)}
+                </span>
+              </a>
+            </Link>
           </h6>
           <p className="text-sm">{description}</p>
           <time className="text-xs text-[#717171] mt-3 block">
