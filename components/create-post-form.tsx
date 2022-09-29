@@ -5,6 +5,12 @@ type FormData = {
   image: File;
   name: string;
   description: string;
+  metadata: {
+    camera?: string;
+    aperture?: string;
+    focalLength?: string;
+    iso?: string;
+  };
 };
 
 interface Props {
@@ -20,6 +26,10 @@ function CreatePostForm({ onSubmit }: Props) {
   const name = useTextInput();
   const description = useTextInput();
   const image = useImage();
+  const camera = useTextInput();
+  const aperture = useTextInput();
+  const focalLength = useTextInput();
+  const iso = useTextInput();
 
   async function handleSubmit() {
     try {
@@ -40,6 +50,12 @@ function CreatePostForm({ onSubmit }: Props) {
         image: image.value,
         name: name.value,
         description: description.value,
+        metadata: {
+          camera: camera.value,
+          aperture: aperture.value,
+          focalLength: focalLength.value,
+          iso: iso.value,
+        },
       });
 
       router.push("/");
@@ -95,10 +111,7 @@ function CreatePostForm({ onSubmit }: Props) {
           </div>
 
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="name" className="label">
               Name
             </label>
             <div className="mt-1">
@@ -106,7 +119,7 @@ function CreatePostForm({ onSubmit }: Props) {
                 type="text"
                 name="name"
                 id="name"
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="input"
                 required
                 {...name.input}
               />
@@ -114,10 +127,7 @@ function CreatePostForm({ onSubmit }: Props) {
           </div>
 
           <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="description" className="label">
               Description
             </label>
             <div className="mt-1">
@@ -125,9 +135,73 @@ function CreatePostForm({ onSubmit }: Props) {
                 type="text"
                 name="description"
                 id="description"
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="input"
                 required
                 {...description.input}
+              />
+            </div>
+          </div>
+
+          <h3 className="uppercase text-sm text-gray-500">
+            Photo Metadata (optional)
+          </h3>
+
+          <div>
+            <label htmlFor="camera" className="label">
+              Camera
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="camera"
+                id="camera"
+                className="input"
+                {...camera.input}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="aperture" className="label">
+              Aperture
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="aperture"
+                id="aperture"
+                className="input"
+                {...aperture.input}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="focalLength" className="label">
+              Focal length
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="focalLength"
+                id="focalLength"
+                className="input"
+                {...focalLength.input}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="iso" className="label">
+              ISO
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="iso"
+                id="iso"
+                className="input"
+                {...iso.input}
               />
             </div>
           </div>

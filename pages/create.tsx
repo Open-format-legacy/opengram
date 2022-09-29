@@ -1,5 +1,6 @@
 import Head from "next/head";
 import CreatePostForm from "../components/create-post-form";
+import Layout from "../components/layout";
 
 function Create() {
   return (
@@ -8,14 +9,15 @@ function Create() {
         <title>Opengram - Create new post</title>
       </Head>
 
-      <CreatePostForm
-        onSubmit={async (formData) => {
-          // @TODO handle minting
-          console.log({ formData });
-
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-        }}
-      />
+      <Layout>
+        <CreatePostForm
+          onSubmit={async (formData) => {
+            // @TODO handle minting
+            console.log({ formData });
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          }}
+        />
+      </Layout>
     </>
   );
 }

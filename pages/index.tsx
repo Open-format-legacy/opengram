@@ -21,6 +21,12 @@ function Home() {
               creator: "0xeFeA490bc73005ceBe13140D197BAE7290d14d51",
               createdAt: "2022-09-28T13:42:01.597Z",
               liked: false,
+              metadata: {
+                camera: "Sony",
+                aperture: "4",
+                focalLength: "100",
+                iso: "500",
+              },
             },
             {
               name: "The mountains",
@@ -30,6 +36,9 @@ function Home() {
               creator: "0xeFeA490bc73005ceBe13140D197BAE7290d14d51",
               createdAt: "2022-09-28T13:42:01.597Z",
               liked: false,
+              metadata: {
+                camera: "Canon",
+              },
             },
             {
               name: "Woods",

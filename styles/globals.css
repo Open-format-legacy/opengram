@@ -11,3 +11,13 @@
     vertical-align: bottom;
   }
 }
+
+@layer components {
+  .input {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+}
