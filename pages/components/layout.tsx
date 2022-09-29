@@ -12,7 +12,9 @@ function Layout({ children }: Props) {
           <div className="px-5 max-w-[940px] mx-auto flex justify-between flex-auto">
             <div>
               <h1 className="text-2xl font-semibold leading-none text-slate-900">
-                Opengram
+                <Link href="/">
+                  <a>Opengram</a>
+                </Link>
               </h1>
             </div>
 
