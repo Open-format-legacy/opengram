@@ -9,12 +9,7 @@ function Stream({ posts }: Props) {
     <>
       <div className="space-y-4">
         {posts.map((post) => (
-          <Post
-            key={post.imageUrl}
-            imageUrl={post.imageUrl}
-            creator={post.creator}
-            createdAt={post.createdAt}
-          />
+          <Post key={post.imageUrl} {...post} />
         ))}
       </div>
     </>

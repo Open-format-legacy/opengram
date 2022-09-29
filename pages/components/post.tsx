@@ -1,11 +1,20 @@
 interface Props {
+  name: string;
+  description: string;
   imageUrl: string;
   creator: string;
   createdAt: string;
   liked: boolean;
 }
 
-function Post({ imageUrl, creator, createdAt, liked }: Props) {
+function Post({
+  name,
+  description,
+  imageUrl,
+  creator,
+  createdAt,
+  liked,
+}: Props) {
   return (
     <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md">
       <div className="p-4">
@@ -31,10 +40,14 @@ function Post({ imageUrl, creator, createdAt, liked }: Props) {
           </div>
         </div>
         <div className="mt-2">
-          <h6>
-            By <span className="font-bold">{truncateAddress(creator)}</span>
+          <h6 className="mb-[2px]">
+            <span className="font-medium">{name}</span> by{" "}
+            <span className="font-medium text-gray-700">
+              {truncateAddress(creator)}
+            </span>
           </h6>
-          <time className="text-xs text-[#717171]">
+          <p className="text-sm">{description}</p>
+          <time className="text-xs text-[#717171] mt-3 block">
             {new Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
           </time>
         </div>
