@@ -1,3 +1,4 @@
+import Avatar from "./avatar";
 import Link from "next/link";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   creator: string;
   createdAt: string;
   liked: boolean;
+  minimal?: boolean;
 }
 
 function Post({
@@ -16,28 +18,29 @@ function Post({
   creator,
   createdAt,
   liked,
+  minimal,
 }: Props) {
   return (
-    <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md">
-      <div className="p-4">
-        <Link href={`/${creator}`}>
-          <a>
-            <img
-              src={avatarUrl(creator)}
-              alt={`${creator} avatar`}
-              className="w-8 h-8"
-            />
-          </a>
-        </Link>
-      </div>
+    <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md overflow-hidden flex flex-col">
+      {!minimal && (
+        <div className="p-4">
+          <Link href={`/${creator}`}>
+            <a>
+              <Avatar creator={creator} />
+            </a>
+          </Link>
+        </div>
+      )}
+
       <img
         src={imageUrl}
         alt={`Photo by ${creator}`}
         width={820}
         height={820}
       />
-      <div className="p-4">
-        <div>
+
+      <div className="p-4 flex-1 flex flex-col">
+        <div className="mb-2">
           <div className="-ml-[2px]">
             {/* @TODO hook up to minting */}
             <button className="block">
@@ -45,22 +48,20 @@ function Post({
             </button>
           </div>
         </div>
-        <div className="mt-2">
-          <h6 className="mb-[2px]">
-            <span className="font-medium">{name}</span> by{" "}
-            <Link href={`/${creator}`}>
-              <a>
-                <span className="font-medium text-gray-700">
-                  {truncateAddress(creator)}
-                </span>
-              </a>
-            </Link>
-          </h6>
-          <p className="text-sm">{description}</p>
-          <time className="text-xs text-[#717171] mt-3 block">
-            {new Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
-          </time>
-        </div>
+        <h6 className="mb-[2px]">
+          <span className="font-medium">{name}</span> by{" "}
+          <Link href={`/${creator}`}>
+            <a>
+              <span className="font-medium text-gray-700">
+                {truncateAddress(creator)}
+              </span>
+            </a>
+          </Link>
+        </h6>
+        <p className="text-sm mb-3">{description}</p>
+        <time className="text-xs text-[#717171] mt-auto block">
+          {new Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
+        </time>
       </div>
     </div>
   );
@@ -98,10 +99,6 @@ function Heart({ liked }: { liked: boolean }) {
       />
     </svg>
   );
-}
-
-function avatarUrl(str: string) {
-  return `https://avatars.dicebear.com/api/identicon/${str}.svg`;
 }
 
 function truncateAddress(str: string) {
