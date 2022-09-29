@@ -9,8 +9,11 @@ function Create() {
       </Head>
 
       <CreatePostForm
-        onSubmit={async () => {
+        onSubmit={async (formData) => {
           // @TODO handle minting
+          console.log({ formData });
+
+          await new Promise((resolve) => setTimeout(resolve, 2000));
         }}
       />
     </>

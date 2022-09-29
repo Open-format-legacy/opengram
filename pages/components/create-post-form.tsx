@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 
 type FormData = {
   image: File;
+  name: string;
+  description: string;
 };
 
 interface Props {
@@ -9,8 +12,13 @@ interface Props {
 }
 
 function CreatePostForm({ onSubmit }: Props) {
+  const router = useRouter();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
+
+  const name = useTextInput();
+  const description = useTextInput();
   const image = useImage();
 
   async function handleSubmit() {
@@ -21,10 +29,20 @@ function CreatePostForm({ onSubmit }: Props) {
       if (!image.value) {
         throw new Error("No image selected");
       }
+      if (!name.value) {
+        throw new Error("Please enter a name");
+      }
+      if (!description.value) {
+        throw new Error("Please enter a description");
+      }
 
       await onSubmit({
         image: image.value,
+        name: name.value,
+        description: description.value,
       });
+
+      router.push("/");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Couldn't create post";
@@ -77,6 +95,44 @@ function CreatePostForm({ onSubmit }: Props) {
           </div>
 
           <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                required
+                {...name.input}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Description
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                name="description"
+                id="description"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                required
+                {...description.input}
+              />
+            </div>
+          </div>
+
+          <div>
             <button
               type="submit"
               className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
@@ -109,6 +165,21 @@ function useImage() {
   return {
     value: image,
     previewUrl: imagePreviewUrl,
+    input: {
+      onChange,
+    },
+  };
+}
+
+function useTextInput(initialValue?: string) {
+  const [text, setText] = useState<undefined | string>(initialValue);
+
+  function onChange(event: ChangeEvent<HTMLInputElement>) {
+    setText(event.target.value);
+  }
+
+  return {
+    value: text,
     input: {
       onChange,
     },
