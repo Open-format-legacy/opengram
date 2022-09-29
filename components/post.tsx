@@ -1,5 +1,6 @@
 import Avatar from "./avatar";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Props {
   name: string;
@@ -20,50 +21,77 @@ function Post({
   liked,
   minimal,
 }: Props) {
+  const [isLightboxVisible, setIsLightboxVisible] = useState(false);
+
   return (
-    <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md overflow-hidden flex flex-col">
-      {!minimal && (
-        <div className="p-4">
-          <Link href={`/${creator}`}>
-            <a>
-              <Avatar creator={creator} />
-            </a>
-          </Link>
+    <>
+      <div className="border-[1px] border-[#dbdbdb] bg-white rounded-md overflow-hidden flex flex-col">
+        {!minimal && (
+          <div className="p-4">
+            <Link href={`/${creator}`}>
+              <a>
+                <Avatar creator={creator} />
+              </a>
+            </Link>
+          </div>
+        )}
+        <button onClick={() => setIsLightboxVisible(true)}>
+          <img
+            src={imageUrl}
+            alt={`Photo by ${creator}`}
+            width={820}
+            height={820}
+          />
+        </button>
+        <div className="p-4 flex-1 flex flex-col">
+          <div className="mb-2">
+            <div className="-ml-[2px]">
+              {/* @TODO hook up to minting */}
+              <button className="block">
+                <Heart liked={liked} />
+              </button>
+            </div>
+          </div>
+          <h6 className="mb-[2px]">
+            <span className="font-medium">{name}</span> by{" "}
+            <Link href={`/${creator}`}>
+              <a>
+                <span className="font-medium text-gray-700">
+                  {truncateAddress(creator)}
+                </span>
+              </a>
+            </Link>
+          </h6>
+          <p className="text-sm mb-3">{description}</p>
+          <time className="text-xs text-[#717171] mt-auto block">
+            {new Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
+          </time>
         </div>
-      )}
+      </div>
 
-      <img
-        src={imageUrl}
-        alt={`Photo by ${creator}`}
-        width={820}
-        height={820}
-      />
+      <div
+        className={`fixed inset-0 z-50 ${
+          isLightboxVisible ? "block" : "hidden"
+        }`}
+      >
+        <div
+          className="fixed inset-0 bg-black/60"
+          onClick={() => setIsLightboxVisible(false)}
+        ></div>
 
-      <div className="p-4 flex-1 flex flex-col">
-        <div className="mb-2">
-          <div className="-ml-[2px]">
-            {/* @TODO hook up to minting */}
-            <button className="block">
-              <Heart liked={liked} />
-            </button>
+        <div className="fixed inset-0 flex pointer-events-none">
+          <div className="m-auto p-8 pointer-events-auto">
+            <img
+              src={imageUrl}
+              alt={`Photo by ${creator}`}
+              width={820}
+              height={820}
+              className="max-h-full w-auto h-auto max-w-full shadow-2xl"
+            />
           </div>
         </div>
-        <h6 className="mb-[2px]">
-          <span className="font-medium">{name}</span> by{" "}
-          <Link href={`/${creator}`}>
-            <a>
-              <span className="font-medium text-gray-700">
-                {truncateAddress(creator)}
-              </span>
-            </a>
-          </Link>
-        </h6>
-        <p className="text-sm mb-3">{description}</p>
-        <time className="text-xs text-[#717171] mt-auto block">
-          {new Intl.DateTimeFormat("en-US").format(new Date(createdAt))}
-        </time>
       </div>
-    </div>
+    </>
   );
 }
 
