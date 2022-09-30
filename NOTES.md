@@ -99,3 +99,38 @@ const posts: React.ComponentProps<typeof Post>[] = (data?.tokens ?? []).map(
   }
 );
 ```
+
+Then on the address page hook up the data...
+
+```tsx
+const { data, isLoading } = useRawRequest<
+  ReturnType<typeof useTokens>["data"],
+  any
+>({
+  query: gql`
+    query CreatorsTokens($creatorId: String!) {
+      tokens(
+        where: {
+          factory_id: "c94972f0-b156-4cc8-b390-22d2b04cd0d7"
+          creator_: { id: $creatorId }
+        }
+      ) {
+        id
+        createdAt
+        release_type
+        symbol
+        creator {
+          id
+        }
+        properties {
+          key
+          value
+        }
+      }
+    }
+  `,
+  variables: {
+    creatorId: address,
+  },
+});
+```
