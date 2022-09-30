@@ -17,3 +17,9 @@ Sometimes next can crap out, delete the .next cache
 In component/navigation.tsx, add the <ConnectButton />
 
 Demo connect button.
+
+Then in the navigation also, use the isConnected check on the post button.
+
+```tsx
+const { isConnected } = useWallet();
+```
