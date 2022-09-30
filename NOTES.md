@@ -63,3 +63,39 @@ query MyQuery {
   }
 }
 ```
+
+Pull in tokens from the home page with useTokens
+
+Data then needs formatting:
+
+```tsx
+const posts: React.ComponentProps<typeof Post>[] = (data?.tokens ?? []).map(
+  (token) => {
+    const getProperty = (key: string) =>
+      token.properties.find((property) => property.key === key)?.value ?? "";
+
+    return {
+      name: getProperty("name"),
+      description: getProperty("description"),
+      imageUrl: getProperty("image").replace(
+        "ipfs://",
+        "https://ipfs.io/ipfs/"
+      ),
+      creator: token.creator.id,
+      createdAt: new Date(parseInt(token.createdAt) * 1000).toISOString(),
+      liked: false,
+      metadata: token.properties
+        .filter((property) =>
+          ["camera", "aperture", "iso", "focalLength"].includes(property.key)
+        )
+        .reduce(
+          (previous, current) => ({
+            ...previous,
+            [current.key]: current.value,
+          }),
+          {}
+        ),
+    };
+  }
+);
+```

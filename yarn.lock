@@ -945,20 +945,20 @@
   resolved "https://registry.yarnpkg.com/@simpleweb/open-format-contracts/-/open-format-contracts-0.3.0.tgz#408e880b42d5c9808ed11f3d877162e8c91bc760"
   integrity sha512-Kr1tL7Yegs0shP/49pQcfm+6c450b7SVpf8NGsJjblXetWQpW8crGEuGkHFUkO1MLQyuvUIysRphDUtJPJP0EQ==
 
-"@simpleweb/open-format-react@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.8.1.tgz#073cfdc7ae6c9c4340dd7e6ef0e65c3247a4e46e"
-  integrity sha512-ir2/N0YbhNZouBBjwj2148Nns6JiX18JHydQqAyshMQUjGuQBC3v+UOmr3rZ2zlznpUbVM9YQ/TQmSwZCE5Xvw==
+"@simpleweb/open-format-react@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.8.3.tgz#9f315ade07bb3978a0a475d9389cbf3f1db56a52"
+  integrity sha512-tmYpFKHZDhYwcsUKK+Hk+JI/XgzWgGx8EAhycR1RtWskSZWiGx+k03RyfwiLMZybO4DdEQlYHYGFfJMZpFK+kw==
   dependencies:
-    "@simpleweb/open-format" "^0.7.0"
+    "@simpleweb/open-format" "^0.9.0"
     "@tanstack/react-query" "^4.0.10"
     connectkit "^0.0.2"
     wagmi "^0.6.4"
 
-"@simpleweb/open-format@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.7.0.tgz#127f6806210ba7d2802eb7b8806276bc3faa0222"
-  integrity sha512-0twtLfk9c8mWIb0w3PWBgFh+2/e0ilyFqdL4K2XiYFvwVei9UZF+JGR5GUtNmU6nwFN7OYGU65+Sb+7EH905qg==
+"@simpleweb/open-format@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.9.0.tgz#7f65023aed1e80ed50cfc4284e49962c7506253a"
+  integrity sha512-0AVImyOuxi/ODjrV4DREPdcKacQYe4JVxmIBW22YXIk8GjAHfiCjTzVSf/PcMMEFzF62BrTLcCuHAyAotvBlVA==
   dependencies:
     "@simpleweb/open-format-contracts" "^0.3.0"
     graphql "^16.5.0"
