@@ -1,20 +1,21 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Avatar from "../components/avatar";
 import Grid from "../components/grid";
 import Layout from "../components/layout";
 
-function Profile() {
-  const { query } = useRouter();
-  const address = query.address as string;
+interface Props {
+  address: string;
+}
 
+function Profile({ address }: Props) {
   // @TODO hookup loading state
   const isLoading = false;
 
   return (
     <>
       <Head>
-        <title>{`${query.address}'s profile`}</title>
+        <title>{`${address}'s profile`}</title>
       </Head>
 
       <Layout mode="full">
@@ -71,5 +72,13 @@ function Profile() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      address: context.params?.address,
+    },
+  };
+};
 
 export default Profile;
