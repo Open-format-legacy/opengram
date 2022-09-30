@@ -1,8 +1,11 @@
+import { useDeploy } from "@simpleweb/open-format-react";
 import Head from "next/head";
 import CreatePostForm from "../components/create-post-form";
 import Layout from "../components/layout";
 
 function Create() {
+  const { deploy } = useDeploy();
+
   return (
     <>
       <Head>
@@ -12,9 +15,16 @@ function Create() {
       <Layout>
         <CreatePostForm
           onSubmit={async (formData) => {
-            // @TODO handle minting
-            console.log({ formData });
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await deploy({
+              maxSupply: 1000,
+              mintingPrice: 0.01,
+              symbol: "OPENGRAM",
+              releaseType: "image",
+              name: formData.name,
+              description: formData.description,
+              image: formData.image,
+              metadata: formData.metadata,
+            });
           }}
         />
       </Layout>
