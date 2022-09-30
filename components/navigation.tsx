@@ -1,3 +1,4 @@
+import { ConnectButton } from "@simpleweb/open-format-react";
 import Link from "next/link";
 
 function Navigation() {
@@ -10,8 +11,7 @@ function Navigation() {
         </a>
       </Link>
 
-      {/* @TODO Connect wallet button */}
-      <button>Connect</button>
+      <ConnectButton />
     </div>
   );
 }
