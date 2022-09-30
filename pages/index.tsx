@@ -4,7 +4,7 @@ import Stream from "../components/stream";
 
 function Home() {
   // @TODO hookup loading state
-  const isLoading = true;
+  const isLoading = false;
 
   return (
     <>
