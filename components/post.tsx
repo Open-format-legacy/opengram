@@ -115,7 +115,7 @@ function Post({
                 alt={`Photo by ${creator}`}
                 width={820}
                 height={820}
-                className="max-h-full w-auto h-auto max-w-full shadow-2xl"
+                className="max-h-full max-w-full shadow-2xl"
               />
 
               {attributes.length > 0 && (
