@@ -69,6 +69,7 @@ function Post({
             alt={`Photo by ${creator}`}
             width={820}
             height={820}
+            className="aspect-square object-cover"
           />
         </button>
         <div className="p-4 flex-1 flex flex-col">
