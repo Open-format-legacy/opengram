@@ -945,10 +945,10 @@
   resolved "https://registry.yarnpkg.com/@simpleweb/open-format-contracts/-/open-format-contracts-0.3.0.tgz#408e880b42d5c9808ed11f3d877162e8c91bc760"
   integrity sha512-Kr1tL7Yegs0shP/49pQcfm+6c450b7SVpf8NGsJjblXetWQpW8crGEuGkHFUkO1MLQyuvUIysRphDUtJPJP0EQ==
 
-"@simpleweb/open-format-react@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.8.0.tgz#5a1395957b6ce382edc38af1334f5b3b195bec2a"
-  integrity sha512-5IRdZ12oXseOwPOK0XqFPuiBobEufBuFrpdqVB3Q8KXPLCa0QYzGJexzqzx1p3tFpWouTVfL0X8OxZzuD4bpWg==
+"@simpleweb/open-format-react@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.8.1.tgz#073cfdc7ae6c9c4340dd7e6ef0e65c3247a4e46e"
+  integrity sha512-ir2/N0YbhNZouBBjwj2148Nns6JiX18JHydQqAyshMQUjGuQBC3v+UOmr3rZ2zlznpUbVM9YQ/TQmSwZCE5Xvw==
   dependencies:
     "@simpleweb/open-format" "^0.7.0"
     "@tanstack/react-query" "^4.0.10"
