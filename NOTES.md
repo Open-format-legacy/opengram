@@ -48,8 +48,9 @@ https://api.thegraph.com/subgraphs/name/simpleweb/open-format/graphql
 query:
 
 ```graphql
-query MyQuery {
+query TokensForFactory {
   tokens(where: { factory_id: "c94972f0-b156-4cc8-b390-22d2b04cd0d7" }) {
+    id
     createdAt
     release_type
     symbol
@@ -75,6 +76,7 @@ const posts: React.ComponentProps<typeof Post>[] = (data?.tokens ?? []).map(
       token.properties.find((property) => property.key === key)?.value ?? "";
 
     return {
+      id: token.id,
       name: getProperty("name"),
       description: getProperty("description"),
       imageUrl: getProperty("image").replace(
