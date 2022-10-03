@@ -19,7 +19,7 @@ function MintHeart({ id }: Props) {
   const { data } = useSaleData({ tokenId: id });
   const mintedCount = parseInt(data?.token?.saleData.totalSold ?? "0");
 
-  const { address } = useWallet();
+  const { address, isConnected } = useWallet();
   const { data: tokenOwners } = useRawRequest<
     { token: { owners: { id: string }[] } },
     any
@@ -56,7 +56,11 @@ function MintHeart({ id }: Props) {
   }
 
   return (
-    <button className="flex space-x-1 items-center" onClick={mintPost}>
+    <button
+      className="flex space-x-1 items-center"
+      onClick={mintPost}
+      disabled={!isConnected}
+    >
       <Heart liked={liked} />
       <span className="font-medium text-sm">
         {mintedCount + localMintedPosts}
