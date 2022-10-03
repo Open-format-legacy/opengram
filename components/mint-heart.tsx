@@ -12,6 +12,7 @@ function MintHeart({ id }: Props) {
   return (
     <button className="flex space-x-1 items-center" onClick={mintPost}>
       <Heart liked={liked} />
+      {/* @TODO hook up number */}
       <span className="font-medium text-sm">0</span>
     </button>
   );
