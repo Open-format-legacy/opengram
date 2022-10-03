@@ -136,3 +136,10 @@ const { data, isLoading } = useRawRequest<
   },
 });
 ```
+
+In mint-heart.tsx, mint the Nft when clicked
+
+```tsx
+const nft = useNFT(id);
+const { mint } = useMint(nft);
+```

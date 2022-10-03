@@ -1,13 +1,23 @@
+import { useMint, useNFT } from "@simpleweb/open-format-react";
+
 interface Props {
   id: string;
 }
 
 function MintHeart({ id }: Props) {
+  const nft = useNFT(id);
+  const { mint } = useMint(nft);
+
   // @TODO hookup liked
   const liked = false;
 
-  // @TODO hookup minting
-  function mintPost() {}
+  async function mintPost() {
+    try {
+      await mint();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <button className="flex space-x-1 items-center" onClick={mintPost}>
