@@ -10,8 +10,9 @@ function MintHeart({ id }: Props) {
   function mintPost() {}
 
   return (
-    <button className="block" onClick={mintPost}>
+    <button className="flex space-x-1 items-center" onClick={mintPost}>
       <Heart liked={liked} />
+      <span className="font-medium text-sm">0</span>
     </button>
   );
 }
