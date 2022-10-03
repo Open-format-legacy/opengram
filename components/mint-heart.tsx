@@ -17,7 +17,7 @@ function MintHeart({ id }: Props) {
   const { mint } = useMint(nft);
 
   const { data } = useSaleData({ tokenId: id });
-  const mintedCount = parseInt(data?.token?.saleData.totalSold ?? 0);
+  const mintedCount = parseInt(data?.token?.saleData.totalSold ?? "0");
 
   const { address } = useWallet();
   const { data: tokenOwners } = useRawRequest<

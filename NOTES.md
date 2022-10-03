@@ -154,6 +154,8 @@ const mintedCount = data?.token?.saleData.totalSold ?? 0;
 Can improve this now by expanding on the local state to change the mint count
 
 ```tsx
+const mintedCount = parseInt(data?.token?.saleData.totalSold ?? "0");
+
 const [localMintedPosts, setLocalMintedPosts] = useState(0);
 async function mintPost() {
   try {
