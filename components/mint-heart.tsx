@@ -6,6 +6,7 @@ import {
   useWallet,
 } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
+import { useState } from "react";
 
 interface Props {
   id: string;
@@ -16,7 +17,7 @@ function MintHeart({ id }: Props) {
   const { mint } = useMint(nft);
 
   const { data } = useSaleData({ tokenId: id });
-  const mintedCount = data?.token?.saleData.totalSold ?? 0;
+  const mintedCount = parseInt(data?.token?.saleData.totalSold ?? 0);
 
   const { address } = useWallet();
   const { data: tokenOwners } = useRawRequest<
@@ -44,9 +45,11 @@ function MintHeart({ id }: Props) {
     (owner) => owner.id.split("-")[0].toLowerCase() === address?.toLowerCase()
   );
 
+  const [localMintedPosts, setLocalMintedPosts] = useState(0);
   async function mintPost() {
     try {
       await mint();
+      setLocalMintedPosts((s) => s + 1);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +58,9 @@ function MintHeart({ id }: Props) {
   return (
     <button className="flex space-x-1 items-center" onClick={mintPost}>
       <Heart liked={liked} />
-      <span className="font-medium text-sm">{mintedCount}</span>
+      <span className="font-medium text-sm">
+        {mintedCount + localMintedPosts}
+      </span>
     </button>
   );
 }

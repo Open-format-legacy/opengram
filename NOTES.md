@@ -151,6 +151,20 @@ const { data } = useSaleData({ tokenId: id });
 const mintedCount = data?.token?.saleData.totalSold ?? 0;
 ```
 
+Can improve this now by expanding on the local state to change the mint count
+
+```tsx
+const [localMintedPosts, setLocalMintedPosts] = useState(0);
+async function mintPost() {
+  try {
+    await mint();
+    setLocalMintedPosts((s) => s + 1);
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
 Check if liked
 
 ```tsx
