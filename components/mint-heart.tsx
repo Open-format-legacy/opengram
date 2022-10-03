@@ -1,4 +1,4 @@
-import { useMint, useNFT } from "@simpleweb/open-format-react";
+import { useMint, useNFT, useSaleData } from "@simpleweb/open-format-react";
 
 interface Props {
   id: string;
@@ -7,6 +7,9 @@ interface Props {
 function MintHeart({ id }: Props) {
   const nft = useNFT(id);
   const { mint } = useMint(nft);
+
+  const { data } = useSaleData({ tokenId: id });
+  const mintedCount = data?.token?.saleData.totalSold ?? 0;
 
   // @TODO hookup liked
   const liked = false;
@@ -22,8 +25,7 @@ function MintHeart({ id }: Props) {
   return (
     <button className="flex space-x-1 items-center" onClick={mintPost}>
       <Heart liked={liked} />
-      {/* @TODO hook up number */}
-      <span className="font-medium text-sm">0</span>
+      <span className="font-medium text-sm">{mintedCount}</span>
     </button>
   );
 }

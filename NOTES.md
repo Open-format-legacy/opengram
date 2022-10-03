@@ -143,3 +143,10 @@ In mint-heart.tsx, mint the Nft when clicked
 const nft = useNFT(id);
 const { mint } = useMint(nft);
 ```
+
+Get the number of likes/hearts
+
+```tsx
+const { data } = useSaleData({ tokenId: id });
+const mintedCount = data?.token?.saleData.totalSold ?? 0;
+```
