@@ -150,3 +150,33 @@ Get the number of likes/hearts
 const { data } = useSaleData({ tokenId: id });
 const mintedCount = data?.token?.saleData.totalSold ?? 0;
 ```
+
+Check if liked
+
+```tsx
+const { address } = useWallet();
+const { data: tokenOwners } = useRawRequest<
+  { token: { owners: { id: string }[] } },
+  any
+>({
+  query: gql`
+    query GetOwners($tokenId: String!) {
+      token(id: $tokenId) {
+        owners {
+          id
+        }
+      }
+    }
+  `,
+  variables: {
+    tokenId: id,
+  },
+  config: {
+    queryHash: `${id}-owners`,
+  },
+});
+
+const liked = (tokenOwners?.token.owners ?? []).some(
+  (owner) => owner.id.split("-")[0].toLowerCase() === address?.toLowerCase()
+);
+```

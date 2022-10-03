@@ -1,4 +1,11 @@
-import { useMint, useNFT, useSaleData } from "@simpleweb/open-format-react";
+import {
+  useMint,
+  useNFT,
+  useRawRequest,
+  useSaleData,
+  useWallet,
+} from "@simpleweb/open-format-react";
+import { gql } from "graphql-request";
 
 interface Props {
   id: string;
@@ -11,8 +18,31 @@ function MintHeart({ id }: Props) {
   const { data } = useSaleData({ tokenId: id });
   const mintedCount = data?.token?.saleData.totalSold ?? 0;
 
-  // @TODO hookup liked
-  const liked = false;
+  const { address } = useWallet();
+  const { data: tokenOwners } = useRawRequest<
+    { token: { owners: { id: string }[] } },
+    any
+  >({
+    query: gql`
+      query GetOwners($tokenId: String!) {
+        token(id: $tokenId) {
+          owners {
+            id
+          }
+        }
+      }
+    `,
+    variables: {
+      tokenId: id,
+    },
+    config: {
+      queryHash: `${id}-owners`,
+    },
+  });
+
+  const liked = (tokenOwners?.token.owners ?? []).some(
+    (owner) => owner.id.split("-")[0].toLowerCase() === address?.toLowerCase()
+  );
 
   async function mintPost() {
     try {
