@@ -1,19 +1,70 @@
+import {
+  useMint,
+  useNFT,
+  useRawRequest,
+  useSaleData,
+  useWallet,
+} from "@simpleweb/open-format-react";
+import { gql } from "graphql-request";
+import { useState } from "react";
+
 interface Props {
   id: string;
 }
 
 function MintHeart({ id }: Props) {
-  // @TODO hookup liked
-  const liked = false;
+  const nft = useNFT(id);
+  const { mint } = useMint(nft);
 
-  // @TODO hookup minting
-  function mintPost() {}
+  const { data } = useSaleData({ tokenId: id });
+  const mintedCount = parseInt(data?.token?.saleData.totalSold ?? "0");
+
+  const { address, isConnected } = useWallet();
+  const { data: tokenOwners } = useRawRequest<
+    { token: { owners: { id: string }[] } },
+    any
+  >({
+    query: gql`
+      query GetOwners($tokenId: String!) {
+        token(id: $tokenId) {
+          owners {
+            id
+          }
+        }
+      }
+    `,
+    variables: {
+      tokenId: id,
+    },
+    config: {
+      queryHash: `${id}-owners`,
+    },
+  });
+
+  const liked = (tokenOwners?.token.owners ?? []).some(
+    (owner) => owner.id.split("-")[0].toLowerCase() === address?.toLowerCase()
+  );
+
+  const [localMintedPosts, setLocalMintedPosts] = useState(0);
+  async function mintPost() {
+    try {
+      await mint();
+      setLocalMintedPosts((s) => s + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
-    <button className="flex space-x-1 items-center" onClick={mintPost}>
+    <button
+      className="flex space-x-1 items-center"
+      onClick={mintPost}
+      disabled={!isConnected}
+    >
       <Heart liked={liked} />
-      {/* @TODO hook up number */}
-      <span className="font-medium text-sm">0</span>
+      <span className="font-medium text-sm">
+        {mintedCount + localMintedPosts}
+      </span>
     </button>
   );
 }
